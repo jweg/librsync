@@ -51,11 +51,17 @@ extern "C" {
 
 #ifdef WIN32
 #define INLINE __inline
-#ifdef LIBRSYNC_EXPORTS
-#define LIBRSYNC_API __declspec(dllexport)
+
+#ifdef LIBRSYNC_STATIC_LIB
+  #define LIBRSYNC_API
 #else
-#define LIBRSYNC_API __declspec(dllimport)
+  #ifdef LIBRSYNC_EXPORTS
+    #define LIBRSYNC_API __declspec(dllexport)
+  #else
+    #define LIBRSYNC_API __declspec(dllimport)
+  #endif
 #endif
+
 #else
 
 /* When using clang, inline semantics are different; disable them. */
